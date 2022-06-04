@@ -9,12 +9,12 @@ _xor = a ^ b
 ls = a << 2
 rs = a >> 2
 
-print(f"{a} = {bin(a)}")
-print(f"{b} = {bin(b)}")
+print(f'{a} = {bin(a)}')
+print(f'{b} = {bin(b)}')
 
-print(f"{a} & {b} = {bin(_and)}")
-print(f"{a} | {b} = {bin(_or)}")
-print(f"{a} ^ {b} = {bin(_xor)}")
+print(f'{a} & {b} = {bin(_and)}')
+print(f'{a} | {b} = {bin(_or)}')
+print(f'{a} ^ {b} = {bin(_xor)}')
 
-print(f"{a} << 2 = {bin(ls)}")
-print(f"{a} >> 2 = {bin(rs)}")
+print(f'{a} << 2 = {bin(ls)}')
+print(f'{a} >> 2 = {bin(rs)}')
