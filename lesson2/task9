@@ -14,4 +14,4 @@ for i in nums:
         res_sum = tmp_sum
         res_max = i
 
-print(f'Масимальное по сумме цифр - число {res_max}: сумма цифр = {res_sum}')
+print(f'Максимальное по сумме цифр - число: {res_max}\nСумма цифр = {res_sum}')
