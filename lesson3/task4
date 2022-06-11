@@ -1,0 +1,17 @@
+# Задание 4. Определить, какое число в массиве встречается чаще всего.
+
+from random import randint
+
+r = [randint(0, 9) for i in range(10)]
+print(f'Массив: {r}')
+
+numbers_dict = {}
+for i in r:
+    if i in numbers_dict:
+        numbers_dict[i] += 1
+    else:
+        numbers_dict[i] = 1
+
+max_enc_number = max(numbers_dict.items(), key=lambda x: x[1])
+
+print(f'Число {max_enc_number[0]} встречается {max_enc_number[1]} раз(а)')
