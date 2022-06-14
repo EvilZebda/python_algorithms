@@ -1,0 +1,48 @@
+# Задание 2. Написать два алгоритма нахождения i-го по счёту простого числа.
+# Без использования «Решета Эратосфена»;
+# Используя алгоритм «Решето Эратосфена»
+
+
+from timeit import timeit
+
+
+# C использованием алгоритма Решето
+def resheto():
+    a = True
+    n = 1000
+    for x in range(1, n):
+        for y in range(1, n):
+            if x != y and y != 1:
+                if not x % y:
+                    a = False
+                    break
+        a = True
+
+
+if __name__ == "__main__":
+    print(f'Время выполнения с алгоритмом "Решето Эратосфена"')
+    print(timeit('resheto()', setup="from task2 import resheto", number=1))
+
+
+# Без использования алгоритма Решето
+def no_resheto():
+    n = 1000
+    lst_p = [2]
+    number = 3
+    while len(lst_p) < n:
+        flag = True
+        for j in lst_p.copy():
+            if number % j == 0:
+                flag = False
+                break
+        if flag:
+            lst_p.append(number)
+        number += 1
+    return lst_p[-1]
+
+
+if __name__ == "__main__":
+    print(f'Время выполнения без алгоритма "Решето Эратосфена"')
+    print(timeit('no_resheto()', setup="from task2 import no_resheto", number=1))
+
+# При малом значении n - разница в скорости практически отсутствует, но вырастает с увеличением n.
