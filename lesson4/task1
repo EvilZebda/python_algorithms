@@ -1,0 +1,63 @@
+# Задание 1. Проанализировать скорость и сложность одного любого алгоритма,
+# разработанных в рамках домашнего задания первых трех уроков.
+# Выбрала задание 4 из урока 2 и три способа решения - через while, ащк и рекурсию.
+
+
+from time import time
+import gc
+
+
+def count_for(n):
+    result = 0
+    number = 1
+    for _ in range(n):
+        result += number
+        number = number / (-2)
+    return result
+
+
+def count_while(n):
+    result = 0
+    number = 1
+    while n > 0:
+        result += number
+        number = number / (-2)
+        n -= 1
+    return result
+
+
+def count_recursion(m, n=1):
+    if m == 1:
+        return n
+    else:
+        return n + count_recursion(m - 1, n / (-2))
+
+
+def time_func(func, arg, repeats=10 ** 4):
+    result = []
+    for _ in range(repeats):
+        gc.disable()
+        start = time()
+        func(arg)
+        stop = time()
+        gc.enable()
+        time_taken = stop - start
+        result.append(time_taken)
+    return sum(result) / len(result)
+
+
+reps = 997
+t_for = time_func(count_for, reps)
+t_while = time_func(count_while, reps)
+t_recursion = time_func(count_recursion, reps)
+
+print(t_for)
+print(t_while)
+print(t_recursion)
+
+print(f'Цикл for in быстрее цикла while в {t_while / t_for:.2f} раз(а)')
+print(f'Цикл while быстрее рекурсии в {t_recursion / t_while:.2f} раз(а)')
+
+# время выполнения в цикле for: 0.00010619971752166748
+# время выполнения в while: 0.00014119672775268554
+# время выполнения в рекурсии: 0.0002724863290786743
