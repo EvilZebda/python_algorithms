@@ -1,0 +1,47 @@
+# Задание 1. Пользователь вводит данные о количестве предприятий, их наименования и прибыль за 4 квартала
+# (т.е. 4 отдельных числа) для каждого предприятия.. Программа должна определить среднюю прибыль
+# (за год для всех предприятий) и вывести наименования предприятий,
+# чья прибыль выше среднего и отдельно вывести наименования предприятий, чья прибыль ниже среднего.
+
+import collections
+
+n = int(input('Введите количество предприятий: '))
+
+
+def default():
+    return 0
+
+
+companies = collections.defaultdict(default)
+above_average = collections.deque()
+below_average = collections.deque()
+total_profit = 0
+quarters = 4
+
+for i in range(n):
+    name = input(f'Введите название {i + 1}ой компании: ')
+    profit = 0
+    quarter = 1
+    while quarter <= quarters:
+        profit += float(input(f'Прибыль за {quarter}й квартал: '))
+        quarter += 1
+    companies[name] = profit
+    total_profit += profit
+
+average = total_profit / n
+
+for i, item in companies.items():
+    if item > average:
+        above_average.append(i)
+    else:
+        below_average.append(i)
+
+print(f'\nСредняя прибыль: {average}\n')
+
+print(f'Прибыль выше среднего у:')
+for name in above_average:
+    print(name)
+
+print(f'Прибыль ниже среднего у:')
+for name in below_average:
+    print(name)
