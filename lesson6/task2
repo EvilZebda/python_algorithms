@@ -1,0 +1,40 @@
+import sys
+
+# Урок 1. Задание №1. Вариант 1. Найти сумму и произведение цифр трехзначного числа, которое вводит пользователь.
+
+num = input('Введите трёхзначное число: ')
+
+if num.isdigit():
+    if len(num) == 3:
+        a = [int(i) for i in num]
+        b = sum(a)
+        c = a[0] * a[1] * a[2]
+        print('Сумма цифр =', b,
+              '\nПроизведение цифр =', c)
+    else:
+        print('Число не является трехзначным!')
+else:
+    print('Вы ввели не числовое значение!')
+
+sum_member = sys.getsizeof(num) + sys.getsizeof(a) + sys.getsizeof(b) + sys.getsizeof(c)
+print('В программе задействовано байт памяти: {}'.format(sum_member))
+
+
+# Урок 1. Задание №1. Вариант 2. Найти сумму и произведение цифр трехзначного числа, которое вводит пользователь.
+number = input('Введите трехзначное число: ')
+
+x = int(number[0])
+y = int(number[1])
+z = int(number[2])
+
+sum_l = x + y + z
+mult = x * y * z
+
+sum_member = sys.getsizeof(number) + sys.getsizeof(x) + sys.getsizeof(y) + sys.getsizeof(z) + sys.getsizeof(
+    sum_l) + sys.getsizeof(mult)
+print('В программе задействовано байт памяти: {}'.format(sum_member))
+
+
+''' Примечание: затраты памяти напрямую зависят от того, какой длинны число будет введено 
+В данном случае длина чила зафиксирована. Поэтому не важно, какое число будет введено (111 или 999)
+В первом варианте будет 196, во втором 192'''
