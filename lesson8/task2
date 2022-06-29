@@ -1,0 +1,68 @@
+# Задание 2. Закодируйте любую строку из трех слов по алгоритму Хаффмана.
+
+from sys import getsizeof
+from collections import Counter
+
+
+class Node:
+    def __init__(self, value, left=None, right=None):
+        self.right = right
+        self.left = left
+        self.value = value
+
+
+def get_code(head, translate=dict(), t=''):
+    if head is None:
+        return None
+    if isinstance(head.value, str):
+        translate[head.value] = t
+        return translate
+    get_code(head.left, translate, t + '0')
+    get_code(head.right, translate, t + '1')
+
+    return translate
+
+
+def get_tree(string):
+    string_count = Counter(string)
+    if len(string_count) <= 1:
+        node = Node(None)
+        if len(string_count) == 1:
+            node.left = Node([key for key in string_count][0])
+            node.right = Node(None)
+        string_count = {node: 1}
+    while len(string_count) != 1:
+        node = Node(None)
+        spam = string_count.most_common()[:-3:-1]
+        if isinstance(spam[0][0], str):
+            node.left = Node(spam[0][0])
+        else:
+            node.left = spam[0][0]
+        if isinstance(spam[1][0], str):
+            node.right = Node(spam[1][0])
+        else:
+            node.right = spam[1][0]
+        del string_count[spam[0][0]]
+        del string_count[spam[1][0]]
+        string_count[node] = spam[0][1] + spam[1][1]
+    return [key for key in string_count][0]
+
+
+def coding(string, translate):
+    res = ''
+    for symbol in string:
+        res += translate[symbol]
+    return res
+
+
+my_string = input('Введите строку маленькими буквами: ')
+tree = get_tree(my_string)
+
+translate = get_code(tree)
+
+print('Словарь кодирования:')
+for k, v in translate.items():
+    print(k, v, sep=': ')
+
+coding_str = coding(my_string, translate)
+print('Закодированная строка:\n', coding_str)
