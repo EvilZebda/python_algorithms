@@ -1,0 +1,49 @@
+# 3. Массив размером 2m + 1, где m – натуральное число, заполнен случайным образом.
+# Найдите в массиве медиану. Медианой называется элемент ряда, делящий его на две равные части:
+# в одной находятся элементы, которые не меньше медианы, в другой – не больше медианы.
+# Задачу можно решить без сортировки исходного массива. Но если это слишком сложно,
+# то используйте метод сортировки, который не рассматривался на уроках
+
+import random
+
+
+def heap_sort(lst):
+    n = len(lst)
+
+    for i in range(n, -1, -1):
+        sorting(lst, n, i)
+
+    for i in range(n - 1, 0, -1):
+        lst[i], lst[0] = lst[0], lst[i]
+        sorting(lst, i, 0)
+
+
+def sorting(lst, step, borderline):
+    max_ind = borderline
+    left_ind = (2 * borderline) + 1
+    right_ind = (2 * borderline) + 2
+
+    if left_ind < step and lst[left_ind] > lst[max_ind]:
+        max_ind = left_ind
+
+    if right_ind < step and lst[right_ind] > lst[max_ind]:
+        max_ind = right_ind
+
+    if max_ind != borderline:
+        lst[borderline], lst[max_ind] = lst[max_ind], lst[borderline]
+        sorting(lst, step, max_ind)
+
+
+m = int(input('Введите m: '))
+
+lst = [random.randint(0, 10) for i in range(2 * m + 1)]
+print(f'Исходный несортированный массив:\n{lst}')
+
+heap_sort(lst)
+# можно обойтись lst.sort(), но по ТЗ так нельзя.
+
+print(f'Отсортированный массив:\n{lst}')
+print(f'Медиана отсортированного массива: {lst[m]}')
+
+
+
